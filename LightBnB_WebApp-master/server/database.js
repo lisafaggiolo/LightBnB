@@ -166,7 +166,7 @@ const getAllProperties = (options, limit = 10) => {
       if (queryParams.length > 1){
         queryString += `AND properties.cost_per_night <= $${queryParams.length} `
       } else {
-      queryString += `WHERE properties.cost_per_night <= $${queryParams.length} `;
+        queryString += `WHERE properties.cost_per_night <= $${queryParams.length} `;
       }      
     }
     
@@ -175,16 +175,16 @@ const getAllProperties = (options, limit = 10) => {
       if (queryParams.length > 1){
         queryString += `AND property_reviews.rating > $${queryParams.length} `
       } else {
-      queryString += `WHERE property_reviews.rating > $${queryParams.length} `;
+        queryString += `WHERE property_reviews.rating > $${queryParams.length} `;
       }
     }
     
     // 4
     queryParams.push(limit);
     queryString += `
-    GROUP BY properties.id
-    ORDER BY properties.cost_per_night
-    LIMIT $${queryParams.length};
+      GROUP BY properties.id
+      ORDER BY properties.cost_per_night
+      LIMIT $${queryParams.length};
     `;
   
     // 5
@@ -217,9 +217,6 @@ const addProperty = function (property) {
 
   return pool
     .query(query, values)
-    .then(res => {
-      console.log(res.rows[0])
-      res.rows[0]
-    });
+    .then(res => res.rows[0]);
 }
 exports.addProperty = addProperty;
